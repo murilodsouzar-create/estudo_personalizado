@@ -2,45 +2,829 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>MathStudy - Matemática Fácil</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+            line-height: 1.6;
+            transition: 0.3s;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            background: white;
+
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            height: 75px;
+
+            margin: auto;
+            padding: 0 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 800;
+            color: #172033;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        #darkMode {
+            border: none;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 10px;
+
+            background: #eef0ff;
+
+            font-size: 18px;
+        }
+
+        .menu-btn {
+            display: none;
+
+            border: none;
+            background: transparent;
+
+            font-size: 26px;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            min-height: 560px;
+
+            display: flex;
+            align-items: center;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    #dfe4ff,
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f0f2ff
+                );
+        }
+
+        .hero-content {
+            width: 100%;
+            max-width: 1200px;
+
+            margin: auto;
+            padding: 70px 25px;
+        }
+
+        .tag {
+            display: inline-block;
+
+            color: #4f46e5;
+
+            font-weight: 800;
+
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            max-width: 800px;
+
+            font-size: clamp(45px, 7vw, 80px);
+
+            line-height: 1.05;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #4f46e5;
+        }
+
+        .hero p {
+            max-width: 650px;
+
+            color: #5c6475;
+
+            font-size: 20px;
+
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+
+            background: #4f46e5;
+            color: white;
+
+            padding: 14px 25px;
+
+            border-radius: 12px;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.25);
+        }
+
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        .section {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 90px 25px;
+        }
+
+        .section-title {
+            text-align: center;
+
+            margin-bottom: 40px;
+        }
+
+        .section-title span {
+            color: #4f46e5;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+
+            margin: 8px 0;
+        }
+
+        .section-title p {
+            color: #697386;
+        }
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        .search-box {
+            max-width: 600px;
+
+            margin: 0 auto 40px;
+        }
+
+        .search-box input {
+            width: 100%;
+
+            padding: 17px 20px;
+
+            border: 1px solid #dfe3eb;
+
+            border-radius: 14px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #4f46e5;
+        }
+
+
+        /* =====================================================
+           CARDS
+        ===================================================== */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+
+            border: 1px solid #e8ebf1;
+
+            border-radius: 20px;
+
+            padding: 28px;
+
+            transition: 0.25s;
+
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 15px 35px
+                rgba(20, 30, 60, 0.08);
+        }
+
+        .card-icon {
+            width: 55px;
+            height: 55px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eef0ff;
+
+            color: #4f46e5;
+
+            border-radius: 15px;
+
+            font-size: 25px;
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #687286;
+
+            min-height: 50px;
+        }
+
+        .card span {
+            display: inline-block;
+
+            color: #4f46e5;
+
+            font-weight: bold;
+
+            margin-top: 20px;
+        }
+
+
+        /* =====================================================
+           CALCULADORAS
+        ===================================================== */
+
+        .calculators-area {
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding: 30px 25px 90px;
+        }
+
+        .calculator {
+            display: none;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 30px
+                rgba(0, 0, 0, 0.05);
+
+            animation: aparecer 0.3s ease;
+        }
+
+        .calculator.active {
+            display: block;
+        }
+
+        @keyframes aparecer {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .calculator h2 {
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+        .calculator-description {
+            color: #687286;
+
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 7px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #dce1ea;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            outline: none;
+
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #4f46e5;
+        }
+
+        .calculate-btn {
+            width: 100%;
+
+            border: none;
+
+            background: #4f46e5;
+
+            color: white;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            transition: 0.2s;
+        }
+
+        .calculate-btn:hover {
+            background: #4338ca;
+
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            margin-bottom: 25px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #4f46e5;
+
+            font-size: 16px;
+
+            font-weight: bold;
+        }
+
+
+        /* =====================================================
+           RESULTADO
+        ===================================================== */
+
+        .result-box {
+            margin-top: 25px;
+
+            padding: 25px;
+
+            background: #f0f2ff;
+
+            border-radius: 15px;
+
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-box h3 {
+            color: #4f46e5;
+
+            margin-bottom: 15px;
+        }
+
+        .result-box p {
+            margin-bottom: 8px;
+        }
+
+        .steps {
+            margin-top: 20px;
+
+            background: #f8f9fc;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            border-left: 4px solid #4f46e5;
+        }
+
+        .steps h4 {
+            margin-bottom: 10px;
+
+            color: #4f46e5;
+        }
+
+
+        /* =====================================================
+           ABOUT
+        ===================================================== */
+
+        .about {
+            max-width: 1200px;
+
+            margin: auto;
+
+            padding: 80px 25px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 300px;
+
+            gap: 50px;
+
+            align-items: center;
+        }
+
+        .about > div:first-child span {
+            color: #4f46e5;
+
+            font-size: 14px;
+
+            font-weight: 800;
+        }
+
+        .about h2 {
+            font-size: 38px;
+
+            margin: 10px 0;
+        }
+
+        .about p {
+            max-width: 650px;
+
+            color: #687286;
+        }
+
+        .about-box {
+            min-height: 200px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            border-radius: 25px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+        .about-box strong {
+            font-size: 60px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        footer {
+            background: #121827;
+
+            color: white;
+
+            padding: 50px 25px;
+
+            text-align: center;
+        }
+
+        footer h3 {
+            font-size: 25px;
+        }
+
+        footer p {
+            color: #aeb5c4;
+
+            margin-top: 8px;
+        }
+
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        body.dark {
+            background: #101522;
+
+            color: #f5f7fb;
+        }
+
+        body.dark header,
+        body.dark .card,
+        body.dark .calculator {
+            background: #171d2c;
+
+            border-color: #293143;
+        }
+
+        body.dark .hero {
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    #222b52,
+                    transparent 35%
+                ),
+                #101522;
+        }
+
+        body.dark .hero p,
+        body.dark .section-title p,
+        body.dark .card p,
+        body.dark .about p,
+        body.dark .calculator-description {
+            color: #aeb6c7;
+        }
+
+        body.dark .search-box input,
+        body.dark .form-group input,
+        body.dark .form-group select {
+            background: #111827;
+
+            color: white;
+
+            border-color: #30394d;
+        }
+
+        body.dark .result-box,
+        body.dark .steps {
+            background: #20283a;
+        }
+
+        body.dark .nav-links {
+            background: #171d2c;
+        }
+
+        body.dark .logo {
+            color: white;
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .cards {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+
+                position: absolute;
+
+                top: 75px;
+                left: 0;
+
+                width: 100%;
+
+                padding: 20px;
+
+                flex-direction: column;
+
+                background: white;
+
+                border-bottom:
+                    1px solid #e5e7eb;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .section-title h2,
+            .about h2 {
+                font-size: 30px;
+            }
+
+            .calculator {
+                padding: 22px;
+            }
+
+            .calculator h2 {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
     <header>
+
         <nav class="navbar">
 
-            <a href="index.html" class="logo">
+            <a href="#inicio" class="logo">
                 Math<span>Study</span>
             </a>
 
-            <button class="menu-btn" id="menuBtn">
+            <button
+                class="menu-btn"
+                id="menuBtn"
+            >
                 ☰
             </button>
 
-            <div class="nav-links" id="navLinks">
-                <a href="#inicio">Início</a>
-                <a href="#calculadoras">Calculadoras</a>
-                <a href="#sobre">Sobre</a>
-                <button id="darkMode">🌙</button>
+            <div
+                class="nav-links"
+                id="navLinks"
+            >
+
+                <a href="#inicio">
+                    Início
+                </a>
+
+                <a href="#calculadoras">
+                    Calculadoras
+                </a>
+
+                <a href="#sobre">
+                    Sobre
+                </a>
+
+                <button id="darkMode">
+                    🌙
+                </button>
+
             </div>
 
         </nav>
+
     </header>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
     <main>
 
-        <section class="hero" id="inicio">
+        <section
+            class="hero"
+            id="inicio"
+        >
 
             <div class="hero-content">
 
                 <span class="tag">
-                    📚 Estude matemática de forma fácil
+                    📚 ESTUDE MATEMÁTICA DE FORMA FÁCIL
                 </span>
 
                 <h1>
@@ -49,11 +833,15 @@
                 </h1>
 
                 <p>
-                    Resolva exercícios, veja os cálculos passo a passo
-                    e aprenda matemática de maneira simples.
+                    Resolva exercícios, confira os cálculos
+                    passo a passo e aprenda matemática de
+                    maneira simples e organizada.
                 </p>
 
-                <a href="#calculadoras" class="btn">
+                <a
+                    href="#calculadoras"
+                    class="btn"
+                >
                     Começar agora →
                 </a>
 
@@ -61,22 +849,34 @@
 
         </section>
 
-        <section class="section" id="calculadoras">
+
+
+        <!-- =================================================
+             CALCULADORAS
+        ================================================== -->
+
+        <section
+            class="section"
+            id="calculadoras"
+        >
 
             <div class="section-title">
 
-                <span>FERRAMENTAS</span>
+                <span>
+                    FERRAMENTAS
+                </span>
 
                 <h2>
                     Escolha uma calculadora
                 </h2>
 
                 <p>
-                    Encontre a ferramenta que você precisa para resolver
-                    seus exercícios.
+                    Encontre a ferramenta que você precisa
+                    para resolver seus exercícios.
                 </p>
 
             </div>
+
 
             <div class="search-box">
 
@@ -88,160 +888,860 @@
 
             </div>
 
-            <div class="cards" id="calculatorCards">
 
-                <a href="paginas/estatistica.html"
-                   class="card"
-                   data-name="estatística média moda mediana variância">
+            <div
+                class="cards"
+                id="calculatorCards"
+            >
+
+
+                <!-- ESTATÍSTICA -->
+
+                <div
+                    class="card"
+                    data-calculator="estatistica"
+                    data-name="estatística média moda mediana variância desvio padrão"
+                >
 
                     <div class="card-icon">
                         📊
                     </div>
 
-                    <h3>Estatística</h3>
+                    <h3>
+                        Estatística
+                    </h3>
 
                     <p>
-                        Média, moda, mediana, variância e
-                        desvio padrão.
+                        Média, moda, mediana,
+                        variância e desvio padrão.
                     </p>
 
-                    <span>Calcular →</span>
+                    <span>
+                        Calcular →
+                    </span>
 
-                </a>
+                </div>
 
-                <a href="paginas/porcentagem.html"
-                   class="card"
-                   data-name="porcentagem desconto aumento">
+
+
+                <!-- PORCENTAGEM -->
+
+                <div
+                    class="card"
+                    data-calculator="porcentagem"
+                    data-name="porcentagem desconto aumento"
+                >
 
                     <div class="card-icon">
                         💯
                     </div>
 
-                    <h3>Porcentagem</h3>
+                    <h3>
+                        Porcentagem
+                    </h3>
 
                     <p>
-                        Calcule porcentagens, descontos e aumentos.
+                        Calcule porcentagens,
+                        descontos e aumentos.
                     </p>
 
-                    <span>Calcular →</span>
+                    <span>
+                        Calcular →
+                    </span>
 
-                </a>
+                </div>
 
-                <a href="paginas/regra3.html"
-                   class="card"
-                   data-name="regra de três">
+
+
+                <!-- REGRA DE 3 -->
+
+                <div
+                    class="card"
+                    data-calculator="regra3"
+                    data-name="regra de três regra 3 proporção"
+                >
 
                     <div class="card-icon">
                         ⚖️
                     </div>
 
-                    <h3>Regra de 3</h3>
+                    <h3>
+                        Regra de 3
+                    </h3>
 
                     <p>
-                        Resolva regras de três simples rapidamente.
+                        Resolva regras de três
+                        simples rapidamente.
                     </p>
 
-                    <span>Calcular →</span>
+                    <span>
+                        Calcular →
+                    </span>
 
-                </a>
+                </div>
 
-                <a href="paginas/equacao1.html"
-                   class="card"
-                   data-name="equação primeiro grau">
+
+
+                <!-- EQUAÇÃO 1 -->
+
+                <div
+                    class="card"
+                    data-calculator="equacao1"
+                    data-name="equação primeiro grau equação de 1 grau"
+                >
 
                     <div class="card-icon">
                         𝑥
                     </div>
 
-                    <h3>1º Grau</h3>
+                    <h3>
+                        1º Grau
+                    </h3>
 
                     <p>
-                        Resolva equações do primeiro grau.
+                        Resolva equações do
+                        primeiro grau.
                     </p>
 
-                    <span>Calcular →</span>
+                    <span>
+                        Calcular →
+                    </span>
 
-                </a>
+                </div>
 
-                <a href="paginas/equacao2.html"
-                   class="card"
-                   data-name="equação segundo grau bhaskara delta">
+
+
+                <!-- EQUAÇÃO 2 -->
+
+                <div
+                    class="card"
+                    data-calculator="equacao2"
+                    data-name="equação segundo grau bhaskara delta"
+                >
 
                     <div class="card-icon">
                         𝑥²
                     </div>
 
-                    <h3>2º Grau</h3>
+                    <h3>
+                        2º Grau
+                    </h3>
 
                     <p>
-                        Calcule Delta e as raízes usando Bhaskara.
+                        Calcule Delta e as raízes
+                        usando Bhaskara.
                     </p>
 
-                    <span>Calcular →</span>
+                    <span>
+                        Calcular →
+                    </span>
 
-                </a>
+                </div>
 
-                <a href="paginas/geometria.html"
-                   class="card"
-                   data-name="geometria área volume perímetro">
+
+
+                <!-- GEOMETRIA -->
+
+                <div
+                    class="card"
+                    data-calculator="geometria"
+                    data-name="geometria área perímetro volume figuras"
+                >
 
                     <div class="card-icon">
                         📐
                     </div>
 
-                    <h3>Geometria</h3>
+                    <h3>
+                        Geometria
+                    </h3>
 
                     <p>
-                        Área, perímetro e volume de figuras.
+                        Área, perímetro e volume
+                        de figuras.
                     </p>
 
-                    <span>Calcular →</span>
+                    <span>
+                        Calcular →
+                    </span>
 
-                </a>
+                </div>
 
-                <a href="paginas/mdc-mmc.html"
-                   class="card"
-                   data-name="mdc mmc máximo divisor mínimo múltiplo">
+
+
+                <!-- MDC MMC -->
+
+                <div
+                    class="card"
+                    data-calculator="mdc"
+                    data-name="mdc mmc máximo divisor mínimo múltiplo"
+                >
 
                     <div class="card-icon">
                         🔢
                     </div>
 
-                    <h3>MDC e MMC</h3>
+                    <h3>
+                        MDC e MMC
+                    </h3>
 
                     <p>
-                        Calcule o máximo divisor e mínimo múltiplo.
+                        Calcule o máximo divisor
+                        e mínimo múltiplo.
                     </p>
 
-                    <span>Calcular →</span>
+                    <span>
+                        Calcular →
+                    </span>
 
-                </a>
+                </div>
+
 
             </div>
 
         </section>
 
-        <section class="about" id="sobre">
+
+
+        <!-- =================================================
+             ÁREA DAS CALCULADORAS
+        ================================================== -->
+
+        <section class="calculators-area">
+
+
+            <!-- =================================================
+                 ESTATÍSTICA
+            ================================================== -->
+
+            <div
+                class="calculator"
+                id="calc-estatistica"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="fecharCalculadora()"
+                >
+                    ← Voltar para calculadoras
+                </button>
+
+                <h2>
+                    📊 Estatística
+                </h2>
+
+                <p class="calculator-description">
+                    Calcule média, mediana, moda,
+                    variância e desvio padrão.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Números separados por vírgula
+                    </label>
+
+                    <input
+                        type="text"
+                        id="estatNumbers"
+                        placeholder="Ex: 10, 20, 20, 30, 40"
+                    >
+
+                </div>
+
+
+                <button
+                    class="calculate-btn"
+                    id="estatCalculate"
+                >
+                    Calcular
+                </button>
+
+
+                <div
+                    class="result-box"
+                    id="estatResult"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PORCENTAGEM
+            ================================================== -->
+
+            <div
+                class="calculator"
+                id="calc-porcentagem"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="fecharCalculadora()"
+                >
+                    ← Voltar para calculadoras
+                </button>
+
+                <h2>
+                    💯 Porcentagem
+                </h2>
+
+                <p class="calculator-description">
+                    Calcule porcentagens, descontos
+                    e aumentos.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tipo de cálculo
+                    </label>
+
+                    <select id="porcType">
+
+                        <option value="normal">
+                            Porcentagem
+                        </option>
+
+                        <option value="discount">
+                            Desconto
+                        </option>
+
+                        <option value="increase">
+                            Aumento
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Valor
+                    </label>
+
+                    <input
+                        type="number"
+                        id="porcValue"
+                        placeholder="Ex: 200"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Porcentagem (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="porcPercentage"
+                        placeholder="Ex: 15"
+                    >
+
+                </div>
+
+
+                <button
+                    class="calculate-btn"
+                    id="porcCalculate"
+                >
+                    Calcular
+                </button>
+
+
+                <div
+                    class="result-box"
+                    id="porcResult"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 REGRA DE 3
+            ================================================== -->
+
+            <div
+                class="calculator"
+                id="calc-regra3"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="fecharCalculadora()"
+                >
+                    ← Voltar para calculadoras
+                </button>
+
+                <h2>
+                    ⚖️ Regra de 3
+                </h2>
+
+                <p class="calculator-description">
+                    Resolva uma regra de três simples.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>
+                        A
+                    </label>
+
+                    <input
+                        type="number"
+                        id="regraA"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        B
+                    </label>
+
+                    <input
+                        type="number"
+                        id="regraB"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        C
+                    </label>
+
+                    <input
+                        type="number"
+                        id="regraC"
+                    >
+
+                </div>
+
+
+                <button
+                    class="calculate-btn"
+                    id="regraCalculate"
+                >
+                    Calcular X
+                </button>
+
+
+                <div
+                    class="result-box"
+                    id="regraResult"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EQUAÇÃO 1º GRAU
+            ================================================== -->
+
+            <div
+                class="calculator"
+                id="calc-equacao1"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="fecharCalculadora()"
+                >
+                    ← Voltar para calculadoras
+                </button>
+
+                <h2>
+                    𝑥 Equação de 1º Grau
+                </h2>
+
+                <p class="calculator-description">
+                    Resolva equações no formato
+                    ax + b = c.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>
+                        A
+                    </label>
+
+                    <input
+                        type="number"
+                        id="eq1A"
+                        placeholder="Ex: 2"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        B
+                    </label>
+
+                    <input
+                        type="number"
+                        id="eq1B"
+                        placeholder="Ex: 5"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        C
+                    </label>
+
+                    <input
+                        type="number"
+                        id="eq1C"
+                        placeholder="Ex: 15"
+                    >
+
+                </div>
+
+
+                <button
+                    class="calculate-btn"
+                    id="eq1Calculate"
+                >
+                    Resolver
+                </button>
+
+
+                <div
+                    class="result-box"
+                    id="eq1Result"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EQUAÇÃO 2º GRAU
+            ================================================== -->
+
+            <div
+                class="calculator"
+                id="calc-equacao2"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="fecharCalculadora()"
+                >
+                    ← Voltar para calculadoras
+                </button>
+
+                <h2>
+                    𝑥² Equação de 2º Grau
+                </h2>
+
+                <p class="calculator-description">
+                    Resolva ax² + bx + c = 0
+                    usando Bhaskara.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>
+                        A
+                    </label>
+
+                    <input
+                        type="number"
+                        id="eq2A"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        B
+                    </label>
+
+                    <input
+                        type="number"
+                        id="eq2B"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        C
+                    </label>
+
+                    <input
+                        type="number"
+                        id="eq2C"
+                    >
+
+                </div>
+
+
+                <button
+                    class="calculate-btn"
+                    id="eq2Calculate"
+                >
+                    Resolver
+                </button>
+
+
+                <div
+                    class="result-box"
+                    id="eq2Result"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 GEOMETRIA
+            ================================================== -->
+
+            <div
+                class="calculator"
+                id="calc-geometria"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="fecharCalculadora()"
+                >
+                    ← Voltar para calculadoras
+                </button>
+
+                <h2>
+                    📐 Geometria
+                </h2>
+
+                <p class="calculator-description">
+                    Calcule áreas, perímetros
+                    e volumes.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Figura
+                    </label>
+
+                    <select id="geoFigure">
+
+                        <option value="square">
+                            Quadrado
+                        </option>
+
+                        <option value="rectangle">
+                            Retângulo
+                        </option>
+
+                        <option value="triangle">
+                            Triângulo
+                        </option>
+
+                        <option value="circle">
+                            Círculo
+                        </option>
+
+                        <option value="cube">
+                            Cubo
+                        </option>
+
+                        <option value="cylinder">
+                            Cilindro
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Valor 1
+                    </label>
+
+                    <input
+                        type="number"
+                        id="geoV1"
+                        placeholder="Ex: lado ou raio"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Valor 2
+                    </label>
+
+                    <input
+                        type="number"
+                        id="geoV2"
+                        placeholder="Ex: altura ou largura"
+                    >
+
+                </div>
+
+
+                <button
+                    class="calculate-btn"
+                    id="geoCalculate"
+                >
+                    Calcular
+                </button>
+
+
+                <div
+                    class="result-box"
+                    id="geoResult"
+                ></div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 MDC MMC
+            ================================================== -->
+
+            <div
+                class="calculator"
+                id="calc-mdc"
+            >
+
+                <button
+                    class="back-btn"
+                    onclick="fecharCalculadora()"
+                >
+                    ← Voltar para calculadoras
+                </button>
+
+                <h2>
+                    🔢 MDC e MMC
+                </h2>
+
+                <p class="calculator-description">
+                    Calcule o máximo divisor comum
+                    e o mínimo múltiplo comum.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Primeiro número
+                    </label>
+
+                    <input
+                        type="number"
+                        id="mdcA"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Segundo número
+                    </label>
+
+                    <input
+                        type="number"
+                        id="mdcB"
+                    >
+
+                </div>
+
+
+                <button
+                    class="calculate-btn"
+                    id="mdcCalculate"
+                >
+                    Calcular
+                </button>
+
+
+                <div
+                    class="result-box"
+                    id="mdcResult"
+                ></div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SOBRE
+        ================================================== -->
+
+        <section
+            class="about"
+            id="sobre"
+        >
 
             <div>
 
-                <span>📚 SOBRE O PROJETO</span>
+                <span>
+                    📚 SOBRE O PROJETO
+                </span>
 
                 <h2>
-                    Aprender matemática pode ser simples.
+                    Aprender matemática
+                    pode ser simples.
                 </h2>
 
                 <p>
-                    O MathStudy foi criado para ajudar estudantes
-                    a resolver exercícios matemáticos de maneira
-                    prática e entender cada etapa dos cálculos.
+                    O MathStudy foi criado para ajudar
+                    estudantes a resolver exercícios
+                    matemáticos de maneira prática e
+                    entender cada etapa dos cálculos.
                 </p>
 
             </div>
 
+
             <div class="about-box">
 
-                <strong>7+</strong>
+                <strong>
+                    7+
+                </strong>
 
                 <span>
                     ferramentas matemáticas
@@ -253,9 +1753,17 @@
 
     </main>
 
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
     <footer>
 
-        <h3>MathStudy</h3>
+        <h3>
+            MathStudy
+        </h3>
 
         <p>
             Matemática simples, prática e explicada.
@@ -267,7 +1775,1968 @@
 
     </footer>
 
-    <script src="js/main.js"></script>
+
+
+    <!-- =====================================================
+         JAVASCRIPT COMPLETO
+    ====================================================== -->
+
+    <script>
+
+
+        /* =====================================================
+           FUNÇÕES GERAIS
+        ===================================================== */
+
+        function numero(valor) {
+
+            return Number(
+                String(valor)
+                    .replace(",", ".")
+                    .trim()
+            );
+
+        }
+
+
+        function formatar(valor) {
+
+            if (!Number.isFinite(valor)) {
+
+                return "Resultado inválido";
+
+            }
+
+            return valor.toLocaleString(
+                "pt-BR",
+                {
+                    maximumFractionDigits: 6
+                }
+            );
+
+        }
+
+
+        function mostrarResultado(
+            elemento,
+            titulo,
+            conteudo
+        ) {
+
+            elemento.innerHTML = `
+                <h3>${titulo}</h3>
+                ${conteudo}
+            `;
+
+            elemento.classList.add("show");
+
+        }
+
+
+        function mostrarErro(
+            elemento,
+            mensagem
+        ) {
+
+            elemento.innerHTML = `
+                <h3>⚠️ Atenção</h3>
+
+                <p>
+                    ${mensagem}
+                </p>
+            `;
+
+            elemento.classList.add("show");
+
+        }
+
+
+
+        /* =====================================================
+           ABRIR CALCULADORA
+        ===================================================== */
+
+        const cards =
+            document.querySelectorAll(".card");
+
+        const calculators =
+            document.querySelectorAll(".calculator");
+
+
+        cards.forEach(card => {
+
+            card.addEventListener(
+                "click",
+                () => {
+
+                    const nome =
+                        card.dataset.calculator;
+
+                    abrirCalculadora(nome);
+
+                }
+            );
+
+        });
+
+
+        function abrirCalculadora(nome) {
+
+            calculators.forEach(calc => {
+
+                calc.classList.remove("active");
+
+            });
+
+
+            const calculadora =
+                document.getElementById(
+                    "calc-" + nome
+                );
+
+
+            if (calculadora) {
+
+                calculadora.classList.add("active");
+
+                calculadora.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+
+        }
+
+
+        function fecharCalculadora() {
+
+            calculators.forEach(calc => {
+
+                calc.classList.remove("active");
+
+            });
+
+
+            document.getElementById(
+                "calculadoras"
+            ).scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+
+
+        /* =====================================================
+           PESQUISA
+        ===================================================== */
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
+
+        searchInput.addEventListener(
+            "input",
+            () => {
+
+                const pesquisa =
+                    searchInput.value
+                        .toLowerCase()
+                        .trim();
+
+
+                cards.forEach(card => {
+
+                    const nome =
+                        card.dataset.name
+                            .toLowerCase();
+
+
+                    if (
+                        nome.includes(
+                            pesquisa
+                        )
+                    ) {
+
+                        card.style.display =
+                            "";
+
+                    } else {
+
+                        card.style.display =
+                            "none";
+
+                    }
+
+                });
+
+            }
+        );
+
+
+
+        /* =====================================================
+           MENU MOBILE
+        ===================================================== */
+
+        const menuBtn =
+            document.getElementById(
+                "menuBtn"
+            );
+
+        const navLinks =
+            document.getElementById(
+                "navLinks"
+            );
+
+
+        menuBtn.addEventListener(
+            "click",
+            () => {
+
+                navLinks.classList.toggle(
+                    "active"
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        const darkMode =
+            document.getElementById(
+                "darkMode"
+            );
+
+
+        if (
+            localStorage.getItem(
+                "mathstudy-dark"
+            ) === "true"
+        ) {
+
+            document.body.classList.add(
+                "dark"
+            );
+
+            darkMode.textContent =
+                "☀️";
+
+        }
+
+
+        darkMode.addEventListener(
+            "click",
+            () => {
+
+                document.body.classList.toggle(
+                    "dark"
+                );
+
+
+                const ativo =
+                    document.body.classList.contains(
+                        "dark"
+                    );
+
+
+                localStorage.setItem(
+                    "mathstudy-dark",
+                    ativo
+                );
+
+
+                darkMode.textContent =
+                    ativo ? "☀️" : "🌙";
+
+            }
+        );
+
+
+
+        /* =====================================================
+           1. ESTATÍSTICA
+        ===================================================== */
+
+        document
+            .getElementById(
+                "estatCalculate"
+            )
+            .addEventListener(
+                "click",
+                calcularEstatistica
+            );
+
+
+        function calcularEstatistica() {
+
+            const input =
+                document.getElementById(
+                    "estatNumbers"
+                ).value;
+
+
+            const result =
+                document.getElementById(
+                    "estatResult"
+                );
+
+
+            const numbers =
+                input
+                    .split(",")
+                    .map(numero)
+                    .filter(
+                        Number.isFinite
+                    );
+
+
+            if (
+                numbers.length === 0
+            ) {
+
+                mostrarErro(
+                    result,
+                    "Digite pelo menos um número."
+                );
+
+                return;
+
+            }
+
+
+            /* SOMA */
+
+            const soma =
+                numbers.reduce(
+                    (total, valor) =>
+                        total + valor,
+                    0
+                );
+
+
+            /* MÉDIA */
+
+            const media =
+                soma / numbers.length;
+
+
+            /* ORDENAR */
+
+            const ordenados =
+                [...numbers].sort(
+                    (a, b) => a - b
+                );
+
+
+            /* MEDIANA */
+
+            const meio =
+                Math.floor(
+                    ordenados.length / 2
+                );
+
+
+            let mediana;
+
+
+            if (
+                ordenados.length % 2 === 0
+            ) {
+
+                mediana =
+                    (
+                        ordenados[meio - 1] +
+                        ordenados[meio]
+                    ) / 2;
+
+            } else {
+
+                mediana =
+                    ordenados[meio];
+
+            }
+
+
+            /* MODA */
+
+            const frequencias = {};
+
+
+            numbers.forEach(
+                valor => {
+
+                    frequencias[valor] =
+                        (
+                            frequencias[valor]
+                            || 0
+                        ) + 1;
+
+                }
+            );
+
+
+            const maiorFrequencia =
+                Math.max(
+                    ...Object.values(
+                        frequencias
+                    )
+                );
+
+
+            const modas =
+                Object.keys(
+                    frequencias
+                ).filter(
+                    valor =>
+                        frequencias[
+                            valor
+                        ] ===
+                        maiorFrequencia
+                );
+
+
+            let moda =
+                "Não existe moda";
+
+
+            if (
+                maiorFrequencia > 1
+            ) {
+
+                moda =
+                    modas.join(", ");
+
+            }
+
+
+            /* VARIÂNCIA */
+
+            const somaQuadrados =
+                numbers.reduce(
+                    (
+                        total,
+                        valor
+                    ) =>
+                        total +
+                        Math.pow(
+                            valor - media,
+                            2
+                        ),
+                    0
+                );
+
+
+            const variancia =
+                somaQuadrados /
+                numbers.length;
+
+
+            /* DESVIO */
+
+            const desvio =
+                Math.sqrt(
+                    variancia
+                );
+
+
+            mostrarResultado(
+                result,
+                "📊 Resultado",
+                `
+
+                <p>
+                    <strong>
+                        Média:
+                    </strong>
+                    ${formatar(media)}
+                </p>
+
+                <p>
+                    <strong>
+                        Mediana:
+                    </strong>
+                    ${formatar(mediana)}
+                </p>
+
+                <p>
+                    <strong>
+                        Moda:
+                    </strong>
+                    ${moda}
+                </p>
+
+                <p>
+                    <strong>
+                        Variância:
+                    </strong>
+                    ${formatar(variancia)}
+                </p>
+
+                <p>
+                    <strong>
+                        Desvio padrão:
+                    </strong>
+                    ${formatar(desvio)}
+                </p>
+
+
+                <div class="steps">
+
+                    <h4>
+                        📝 Cálculos passo a passo
+                    </h4>
+
+                    <p>
+                        <strong>1.</strong>
+                        Soma dos valores:
+                        ${formatar(soma)}
+                    </p>
+
+                    <p>
+                        <strong>2.</strong>
+                        Quantidade:
+                        ${numbers.length}
+                    </p>
+
+                    <p>
+                        <strong>3.</strong>
+                        Média =
+                        ${formatar(soma)}
+                        ÷
+                        ${numbers.length}
+                        =
+                        ${formatar(media)}
+                    </p>
+
+                    <p>
+                        <strong>4.</strong>
+                        Variância =
+                        ${formatar(variancia)}
+                    </p>
+
+                    <p>
+                        <strong>5.</strong>
+                        Desvio padrão =
+                        √${formatar(variancia)}
+                        =
+                        ${formatar(desvio)}
+                    </p>
+
+                </div>
+
+                `
+            );
+
+        }
+
+
+
+        /* =====================================================
+           2. PORCENTAGEM
+        ===================================================== */
+
+        document
+            .getElementById(
+                "porcCalculate"
+            )
+            .addEventListener(
+                "click",
+                calcularPorcentagem
+            );
+
+
+        function calcularPorcentagem() {
+
+            const tipo =
+                document.getElementById(
+                    "porcType"
+                ).value;
+
+
+            const valor =
+                numero(
+                    document.getElementById(
+                        "porcValue"
+                    ).value
+                );
+
+
+            const porcentagem =
+                numero(
+                    document.getElementById(
+                        "porcPercentage"
+                    ).value
+                );
+
+
+            const result =
+                document.getElementById(
+                    "porcResult"
+                );
+
+
+            if (
+                !Number.isFinite(valor) ||
+                !Number.isFinite(porcentagem)
+            ) {
+
+                mostrarErro(
+                    result,
+                    "Preencha todos os campos corretamente."
+                );
+
+                return;
+
+            }
+
+
+            const parte =
+                valor *
+                porcentagem /
+                100;
+
+
+            if (
+                tipo === "normal"
+            ) {
+
+                mostrarResultado(
+                    result,
+                    "💯 Resultado",
+                    `
+
+                    <p>
+                        ${porcentagem}%
+                        de
+                        ${formatar(valor)}
+                        =
+                        <strong>
+                            ${formatar(parte)}
+                        </strong>
+                    </p>
+
+
+                    <div class="steps">
+
+                        <h4>
+                            📝 Passo a passo
+                        </h4>
+
+                        <p>
+                            ${valor}
+                            ×
+                            ${porcentagem}
+                            ÷
+                            100
+                        </p>
+
+                        <p>
+                            =
+                            ${formatar(parte)}
+                        </p>
+
+                    </div>
+
+                    `
+                );
+
+            }
+
+
+            else if (
+                tipo === "discount"
+            ) {
+
+                const final =
+                    valor - parte;
+
+
+                mostrarResultado(
+                    result,
+                    "💰 Desconto",
+                    `
+
+                    <p>
+                        Valor do desconto:
+                        <strong>
+                            ${formatar(parte)}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Valor final:
+                        <strong>
+                            ${formatar(final)}
+                        </strong>
+                    </p>
+
+
+                    <div class="steps">
+
+                        <h4>
+                            📝 Passo a passo
+                        </h4>
+
+                        <p>
+                            Desconto =
+                            ${valor}
+                            ×
+                            ${porcentagem}
+                            ÷
+                            100
+                        </p>
+
+                        <p>
+                            Desconto =
+                            ${formatar(parte)}
+                        </p>
+
+                        <p>
+                            ${valor}
+                            -
+                            ${formatar(parte)}
+                            =
+                            ${formatar(final)}
+                        </p>
+
+                    </div>
+
+                    `
+                );
+
+            }
+
+
+            else {
+
+                const final =
+                    valor + parte;
+
+
+                mostrarResultado(
+                    result,
+                    "📈 Aumento",
+                    `
+
+                    <p>
+                        Valor do aumento:
+                        <strong>
+                            ${formatar(parte)}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Valor final:
+                        <strong>
+                            ${formatar(final)}
+                        </strong>
+                    </p>
+
+
+                    <div class="steps">
+
+                        <h4>
+                            📝 Passo a passo
+                        </h4>
+
+                        <p>
+                            Aumento =
+                            ${valor}
+                            ×
+                            ${porcentagem}
+                            ÷
+                            100
+                        </p>
+
+                        <p>
+                            Aumento =
+                            ${formatar(parte)}
+                        </p>
+
+                        <p>
+                            ${valor}
+                            +
+                            ${formatar(parte)}
+                            =
+                            ${formatar(final)}
+                        </p>
+
+                    </div>
+
+                    `
+                );
+
+            }
+
+        }
+
+
+
+        /* =====================================================
+           3. REGRA DE 3
+        ===================================================== */
+
+        document
+            .getElementById(
+                "regraCalculate"
+            )
+            .addEventListener(
+                "click",
+                calcularRegra3
+            );
+
+
+        function calcularRegra3() {
+
+            const A =
+                numero(
+                    document.getElementById(
+                        "regraA"
+                    ).value
+                );
+
+
+            const B =
+                numero(
+                    document.getElementById(
+                        "regraB"
+                    ).value
+                );
+
+
+            const C =
+                numero(
+                    document.getElementById(
+                        "regraC"
+                    ).value
+                );
+
+
+            const result =
+                document.getElementById(
+                    "regraResult"
+                );
+
+
+            if (
+                !Number.isFinite(A) ||
+                !Number.isFinite(B) ||
+                !Number.isFinite(C)
+            ) {
+
+                mostrarErro(
+                    result,
+                    "Preencha todos os campos."
+                );
+
+                return;
+
+            }
+
+
+            if (A === 0) {
+
+                mostrarErro(
+                    result,
+                    "O valor A não pode ser zero."
+                );
+
+                return;
+
+            }
+
+
+            const x =
+                B * C / A;
+
+
+            mostrarResultado(
+                result,
+                "⚖️ Resultado",
+                `
+
+                <p>
+                    <strong>
+                        X = ${formatar(x)}
+                    </strong>
+                </p>
+
+
+                <div class="steps">
+
+                    <h4>
+                        📝 Passo a passo
+                    </h4>
+
+                    <p>
+                        A → B
+                    </p>
+
+                    <p>
+                        C → X
+                    </p>
+
+                    <p>
+                        X =
+                        B × C ÷ A
+                    </p>
+
+                    <p>
+                        X =
+                        ${B}
+                        ×
+                        ${C}
+                        ÷
+                        ${A}
+                    </p>
+
+                    <p>
+                        X =
+                        ${formatar(x)}
+                    </p>
+
+                </div>
+
+                `
+            );
+
+        }
+
+
+
+        /* =====================================================
+           4. EQUAÇÃO DE 1º GRAU
+        ===================================================== */
+
+        document
+            .getElementById(
+                "eq1Calculate"
+            )
+            .addEventListener(
+                "click",
+                calcularEquacao1
+            );
+
+
+        function calcularEquacao1() {
+
+            const A =
+                numero(
+                    document.getElementById(
+                        "eq1A"
+                    ).value
+                );
+
+
+            const B =
+                numero(
+                    document.getElementById(
+                        "eq1B"
+                    ).value
+                );
+
+
+            const C =
+                numero(
+                    document.getElementById(
+                        "eq1C"
+                    ).value
+                );
+
+
+            const result =
+                document.getElementById(
+                    "eq1Result"
+                );
+
+
+            if (
+                !Number.isFinite(A) ||
+                !Number.isFinite(B) ||
+                !Number.isFinite(C)
+            ) {
+
+                mostrarErro(
+                    result,
+                    "Preencha todos os campos."
+                );
+
+                return;
+
+            }
+
+
+            if (A === 0) {
+
+                mostrarErro(
+                    result,
+                    "O valor de A precisa ser diferente de zero."
+                );
+
+                return;
+
+            }
+
+
+            const x =
+                (C - B) / A;
+
+
+            mostrarResultado(
+                result,
+                "𝑥 Resultado",
+                `
+
+                <p>
+                    <strong>
+                        x = ${formatar(x)}
+                    </strong>
+                </p>
+
+
+                <div class="steps">
+
+                    <h4>
+                        📝 Passo a passo
+                    </h4>
+
+                    <p>
+                        Equação:
+                        ${A}x + ${B}
+                        =
+                        ${C}
+                    </p>
+
+                    <p>
+                        ${A}x
+                        =
+                        ${C} - ${B}
+                    </p>
+
+                    <p>
+                        ${A}x
+                        =
+                        ${C - B}
+                    </p>
+
+                    <p>
+                        x
+                        =
+                        ${C - B}
+                        ÷
+                        ${A}
+                    </p>
+
+                    <p>
+                        x
+                        =
+                        ${formatar(x)}
+                    </p>
+
+                </div>
+
+                `
+            );
+
+        }
+
+
+
+        /* =====================================================
+           5. EQUAÇÃO DE 2º GRAU
+        ===================================================== */
+
+        document
+            .getElementById(
+                "eq2Calculate"
+            )
+            .addEventListener(
+                "click",
+                calcularEquacao2
+            );
+
+
+        function calcularEquacao2() {
+
+            const A =
+                numero(
+                    document.getElementById(
+                        "eq2A"
+                    ).value
+                );
+
+
+            const B =
+                numero(
+                    document.getElementById(
+                        "eq2B"
+                    ).value
+                );
+
+
+            const C =
+                numero(
+                    document.getElementById(
+                        "eq2C"
+                    ).value
+                );
+
+
+            const result =
+                document.getElementById(
+                    "eq2Result"
+                );
+
+
+            if (
+                !Number.isFinite(A) ||
+                !Number.isFinite(B) ||
+                !Number.isFinite(C)
+            ) {
+
+                mostrarErro(
+                    result,
+                    "Preencha todos os campos."
+                );
+
+                return;
+
+            }
+
+
+            if (A === 0) {
+
+                mostrarErro(
+                    result,
+                    "A precisa ser diferente de zero."
+                );
+
+                return;
+
+            }
+
+
+            const delta =
+                Math.pow(B, 2)
+                -
+                4 * A * C;
+
+
+            if (delta < 0) {
+
+                mostrarResultado(
+                    result,
+                    "𝑥² Resultado",
+                    `
+
+                    <p>
+                        Δ =
+                        <strong>
+                            ${formatar(delta)}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Como Δ &lt; 0,
+                        a equação não possui
+                        raízes reais.
+                    </p>
+
+
+                    <div class="steps">
+
+                        <h4>
+                            📝 Passo a passo
+                        </h4>
+
+                        <p>
+                            Δ = b² - 4ac
+                        </p>
+
+                        <p>
+                            Δ =
+                            ${B}²
+                            -
+                            4 × ${A} × ${C}
+                        </p>
+
+                        <p>
+                            Δ =
+                            ${formatar(delta)}
+                        </p>
+
+                    </div>
+
+                    `
+                );
+
+                return;
+
+            }
+
+
+            const raizDelta =
+                Math.sqrt(delta);
+
+
+            const x1 =
+                (
+                    -B +
+                    raizDelta
+                )
+                /
+                (2 * A);
+
+
+            const x2 =
+                (
+                    -B -
+                    raizDelta
+                )
+                /
+                (2 * A);
+
+
+            mostrarResultado(
+                result,
+                "𝑥² Resultado",
+                `
+
+                <p>
+                    <strong>
+                        Δ =
+                        ${formatar(delta)}
+                    </strong>
+                </p>
+
+                <p>
+                    x₁ =
+                    <strong>
+                        ${formatar(x1)}
+                    </strong>
+                </p>
+
+                <p>
+                    x₂ =
+                    <strong>
+                        ${formatar(x2)}
+                    </strong>
+                </p>
+
+
+                <div class="steps">
+
+                    <h4>
+                        📝 Passo a passo
+                    </h4>
+
+                    <p>
+                        Δ = b² - 4ac
+                    </p>
+
+                    <p>
+                        Δ =
+                        ${B}²
+                        -
+                        4 × ${A} × ${C}
+                    </p>
+
+                    <p>
+                        Δ =
+                        ${formatar(delta)}
+                    </p>
+
+                    <p>
+                        √Δ =
+                        ${formatar(raizDelta)}
+                    </p>
+
+                    <p>
+                        x = (-b ± √Δ) / 2a
+                    </p>
+
+                    <p>
+                        x₁ =
+                        ${formatar(x1)}
+                    </p>
+
+                    <p>
+                        x₂ =
+                        ${formatar(x2)}
+                    </p>
+
+                </div>
+
+                `
+            );
+
+        }
+
+
+
+        /* =====================================================
+           6. GEOMETRIA
+        ===================================================== */
+
+        document
+            .getElementById(
+                "geoCalculate"
+            )
+            .addEventListener(
+                "click",
+                calcularGeometria
+            );
+
+
+        function calcularGeometria() {
+
+            const figura =
+                document.getElementById(
+                    "geoFigure"
+                ).value;
+
+
+            const v1 =
+                numero(
+                    document.getElementById(
+                        "geoV1"
+                    ).value
+                );
+
+
+            const v2 =
+                numero(
+                    document.getElementById(
+                        "geoV2"
+                    ).value
+                );
+
+
+            const result =
+                document.getElementById(
+                    "geoResult"
+                );
+
+
+            if (
+                !Number.isFinite(v1)
+            ) {
+
+                mostrarErro(
+                    result,
+                    "Digite o primeiro valor."
+                );
+
+                return;
+
+            }
+
+
+            let html = "";
+
+
+            switch (figura) {
+
+
+                case "square": {
+
+                    const area =
+                        v1 * v1;
+
+                    const perimeter =
+                        4 * v1;
+
+
+                    html = `
+
+                        <p>
+                            Área:
+                            <strong>
+                                ${formatar(area)}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Perímetro:
+                            <strong>
+                                ${formatar(perimeter)}
+                            </strong>
+                        </p>
+
+
+                        <div class="steps">
+
+                            <h4>
+                                📝 Passo a passo
+                            </h4>
+
+                            <p>
+                                Área =
+                                lado²
+                            </p>
+
+                            <p>
+                                Área =
+                                ${v1}²
+                                =
+                                ${formatar(area)}
+                            </p>
+
+                            <p>
+                                Perímetro =
+                                4 × ${v1}
+                                =
+                                ${formatar(perimeter)}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    break;
+
+                }
+
+
+                case "rectangle": {
+
+                    if (
+                        !Number.isFinite(v2)
+                    ) {
+
+                        mostrarErro(
+                            result,
+                            "Digite o segundo valor."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const area =
+                        v1 * v2;
+
+
+                    const perimeter =
+                        2 *
+                        (v1 + v2);
+
+
+                    html = `
+
+                        <p>
+                            Área:
+                            <strong>
+                                ${formatar(area)}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Perímetro:
+                            <strong>
+                                ${formatar(perimeter)}
+                            </strong>
+                        </p>
+
+
+                        <div class="steps">
+
+                            <h4>
+                                📝 Passo a passo
+                            </h4>
+
+                            <p>
+                                Área =
+                                base × altura
+                            </p>
+
+                            <p>
+                                Área =
+                                ${v1}
+                                ×
+                                ${v2}
+                                =
+                                ${formatar(area)}
+                            </p>
+
+                            <p>
+                                Perímetro =
+                                2 × (${v1} + ${v2})
+                                =
+                                ${formatar(perimeter)}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    break;
+
+                }
+
+
+                case "triangle": {
+
+                    if (
+                        !Number.isFinite(v2)
+                    ) {
+
+                        mostrarErro(
+                            result,
+                            "Digite a altura."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const area =
+                        (
+                            v1 * v2
+                        ) / 2;
+
+
+                    html = `
+
+                        <p>
+                            Área:
+                            <strong>
+                                ${formatar(area)}
+                            </strong>
+                        </p>
+
+
+                        <div class="steps">
+
+                            <h4>
+                                📝 Passo a passo
+                            </h4>
+
+                            <p>
+                                Área =
+                                (base × altura) ÷ 2
+                            </p>
+
+                            <p>
+                                Área =
+                                (${v1} × ${v2})
+                                ÷ 2
+                            </p>
+
+                            <p>
+                                Área =
+                                ${formatar(area)}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    break;
+
+                }
+
+
+                case "circle": {
+
+                    const area =
+                        Math.PI *
+                        v1 *
+                        v1;
+
+
+                    const circumference =
+                        2 *
+                        Math.PI *
+                        v1;
+
+
+                    html = `
+
+                        <p>
+                            Área:
+                            <strong>
+                                ${formatar(area)}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Circunferência:
+                            <strong>
+                                ${formatar(circumference)}
+                            </strong>
+                        </p>
+
+
+                        <div class="steps">
+
+                            <h4>
+                                📝 Passo a passo
+                            </h4>
+
+                            <p>
+                                Área = π × r²
+                            </p>
+
+                            <p>
+                                Área =
+                                π × ${v1}²
+                            </p>
+
+                            <p>
+                                Área =
+                                ${formatar(area)}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    break;
+
+                }
+
+
+                case "cube": {
+
+                    const area =
+                        6 *
+                        Math.pow(v1, 2);
+
+
+                    const volume =
+                        Math.pow(v1, 3);
+
+
+                    html = `
+
+                        <p>
+                            Área total:
+                            <strong>
+                                ${formatar(area)}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Volume:
+                            <strong>
+                                ${formatar(volume)}
+                            </strong>
+                        </p>
+
+
+                        <div class="steps">
+
+                            <h4>
+                                📝 Passo a passo
+                            </h4>
+
+                            <p>
+                                Área =
+                                6 × lado²
+                            </p>
+
+                            <p>
+                                Volume =
+                                lado³
+                            </p>
+
+                            <p>
+                                Volume =
+                                ${v1}³
+                                =
+                                ${formatar(volume)}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    break;
+
+                }
+
+
+                case "cylinder": {
+
+                    if (
+                        !Number.isFinite(v2)
+                    ) {
+
+                        mostrarErro(
+                            result,
+                            "Digite a altura."
+                        );
+
+                        return;
+
+                    }
+
+
+                    const area =
+                        2 *
+                        Math.PI *
+                        v1 *
+                        (v1 + v2);
+
+
+                    const volume =
+                        Math.PI *
+                        Math.pow(v1, 2) *
+                        v2;
+
+
+                    html = `
+
+                        <p>
+                            Área total:
+                            <strong>
+                                ${formatar(area)}
+                            </strong>
+                        </p>
+
+                        <p>
+                            Volume:
+                            <strong>
+                                ${formatar(volume)}
+                            </strong>
+                        </p>
+
+
+                        <div class="steps">
+
+                            <h4>
+                                📝 Passo a passo
+                            </h4>
+
+                            <p>
+                                Volume =
+                                π × r² × h
+                            </p>
+
+                            <p>
+                                Volume =
+                                π × ${v1}² × ${v2}
+                            </p>
+
+                            <p>
+                                Volume =
+                                ${formatar(volume)}
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    break;
+
+                }
+
+            }
+
+
+            mostrarResultado(
+                result,
+                "📐 Resultado",
+                html
+            );
+
+        }
+
+
+
+        /* =====================================================
+           7. MDC E MMC
+        ===================================================== */
+
+        document
+            .getElementById(
+                "mdcCalculate"
+            )
+            .addEventListener(
+                "click",
+                calcularMdcMmc
+            );
+
+
+        function calcularMdcMmc() {
+
+            const A =
+                numero(
+                    document.getElementById(
+                        "mdcA"
+                    ).value
+                );
+
+
+            const B =
+                numero(
+                    document.getElementById(
+                        "mdcB"
+                    ).value
+                );
+
+
+            const result =
+                document.getElementById(
+                    "mdcResult"
+                );
+
+
+            if (
+                !Number.isFinite(A) ||
+                !Number.isFinite(B)
+            ) {
+
+                mostrarErro(
+                    result,
+                    "Digite os dois números."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                A === 0 ||
+                B === 0
+            ) {
+
+                mostrarErro(
+                    result,
+                    "Os números precisam ser diferentes de zero."
+                );
+
+                return;
+
+            }
+
+
+            const mdcResultado =
+                calcularMDC(
+                    A,
+                    B
+                );
+
+
+            const mmcResultado =
+                Math.abs(
+                    A * B
+                ) /
+                mdcResultado;
+
+
+            mostrarResultado(
+                result,
+                "🔢 Resultado",
+                `
+
+                <p>
+                    <strong>
+                        MDC =
+                        ${formatar(
+                            mdcResultado
+                        )}
+                    </strong>
+                </p>
+
+                <p>
+                    <strong>
+                        MMC =
+                        ${formatar(
+                            mmcResultado
+                        )}
+                    </strong>
+                </p>
+
+
+                <div class="steps">
+
+                    <h4>
+                        📝 Passo a passo
+                    </h4>
+
+                    <p>
+                        Números:
+                        ${A}
+                        e
+                        ${B}
+                    </p>
+
+                    <p>
+                        MDC(${A}, ${B})
+                        =
+                        ${mdcResultado}
+                    </p>
+
+                    <p>
+                        MMC =
+                        |A × B| ÷ MDC
+                    </p>
+
+                    <p>
+                        MMC =
+                        ${Math.abs(A * B)}
+                        ÷
+                        ${mdcResultado}
+                    </p>
+
+                    <p>
+                        MMC =
+                        ${formatar(
+                            mmcResultado
+                        )}
+                    </p>
+
+                </div>
+
+                `
+            );
+
+        }
+
+
+        function calcularMDC(a, b) {
+
+            a =
+                Math.abs(a);
+
+            b =
+                Math.abs(b);
+
+
+            while (
+                b !== 0
+            ) {
+
+                const resto =
+                    a % b;
+
+                a = b;
+
+                b = resto;
+
+            }
+
+
+            return a;
+
+        }
+
+
+    </script>
+
 
 </body>
 
